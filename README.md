@@ -25,4 +25,4 @@ docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
 
 Once it has started, you can open your browser to [http://localhost:8080](http://localhost:8080).
 
-![Image Labs UI](images/makeen-labs.png)
+![Screenshot](images/makeen-labs.png)
