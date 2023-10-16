@@ -1,6 +1,6 @@
 ## Running our first App
 
-For the rest of this tutorial, we will be working with a simple dotnet core asp app written in C#. If you're not familiar with C#, don't worry! No real JavaScript experience is needed!
+For the rest of this tutorial, we will be working with a simple dotnet core asp app written in C#. If you're not familiar with C#, don't worry! No real C# experience is needed!
 
 At this point, your development team is quite small and you're simply
 building an app to prove out your MVP (minimum viable product). You want

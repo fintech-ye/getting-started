@@ -31,7 +31,7 @@ an example command that you will need to run to push to this repo.
     An image does not exist locally with the tag: maghbari/dotnet-example-app
     ```
 
-    Why did it fail? The push command was looking for an image named docker/getting-started, but
+    Why did it fail? The push command was looking for an image named maghbari/dotnet-example-app, but
     didn't find one. If you run `docker image ls`, you won't see one either.
 
     To fix this, we need to "tag" our existing image we've built to give it another name.
