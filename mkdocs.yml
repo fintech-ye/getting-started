@@ -70,8 +70,8 @@ markdown_extensions:
 # Page tree
 nav:
   - Getting Started: tutorial/index.md
-  - Our Application: tutorial/our-application/index.md
-  - Updating our App: tutorial/updating-our-app/index.md
+  - First Application: tutorial/our-application/index.md
+  - Updating First App: tutorial/updating-our-app/index.md
   - Sharing our App: tutorial/sharing-our-app/index.md
   - Persisting our DB: tutorial/persisting-our-data/index.md
   # - Using Bind Mounts: tutorial/using-bind-mounts/index.md

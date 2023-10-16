@@ -20,7 +20,7 @@ into depth, it covers the following topics:
 If you wish to run the tutorial, you can use the following command after installing Docker Desktop:
 
 ```bash
-docker run -d -p 8080:80 maghbari/docker-tutorial
+docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
 ```
 
 Once it has started, you can open your browser to [http://localhost:8080](http://localhost:8080).

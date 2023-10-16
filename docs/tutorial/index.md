@@ -9,21 +9,14 @@ Let's first explain the command that you just ran. In case you forgot,
 here's the command:
 
 ```cli
-docker run -d -p 8080:80 maghbari/docker-tutorial
+docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
 ```
 
 You'll notice a few flags being used. Here's some more info on them:
 
 - `-d` - run the container in detached mode (in the background)
-- `-p 80:80` - map port 80 of the host to port 80 in the container
-- `docker/getting-started` - the image to use
-
-!!! info "Pro tip"
-    You can combine single character flags to shorten the full command.
-    As an example, the command above could be written as:
-    ```
-    docker run -d -p 8080:80 maghbari/docker-tutorial
-    ```
+- `-p 8080:80` - map port 80 of the host to port 80 in the container
+- `maghbari/makeen-labs:1.0` - the image to us
 
 ## The Docker Dashboard
 
