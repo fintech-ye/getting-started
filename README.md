@@ -1,5 +1,7 @@
 # Docker Getting Started Tutorial
 
+![Screenshot](docs/images/makeen-labs.png)
+
 This tutorial was written with the intent of helping Trainees get up and running
 with containers and is designed to work with Docker Desktop. While not going too much 
 into depth, it covers the following topics:
@@ -24,5 +26,3 @@ docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
 ```
 
 Once it has started, you can open your browser to [http://localhost:8080](http://localhost:8080).
-
-![Screenshot](docs/images/makeen-labs.png)
