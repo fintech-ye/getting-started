@@ -19,7 +19,10 @@ into depth, it covers the following topics:
 
 ## Getting Started
 
-If you wish to run the tutorial, you can use the following command after installing Docker Desktop:
+The tutorial documentation is published on:
+[https://fintech-ye.github.io/getting-started](https://fintech-ye.github.io/getting-started)
+
+If you wish to run the tutorial locally, you can use the following command after installing Docker Desktop:
 
 ```bash
 docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
