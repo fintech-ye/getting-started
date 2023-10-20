@@ -1,2 +1,1 @@
-redirect: /tutorial/
-
+redirect: tutorial
