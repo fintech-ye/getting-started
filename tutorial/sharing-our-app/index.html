@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="MAKEEN">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Sharing our App - MAKEEN LABS</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <link href="../../css/styles.css" rel="stylesheet">
+        <link href="../../css/dark-mode.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">MAKEEN LABS</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../our-application/" class="nav-link">First Application</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../updating-our-app/" class="nav-link">Updating First App</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Sharing our App</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../persisting-our-data/" class="nav-link">Persisting our DB</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../multi-container-apps/" class="nav-link">Multi-Container Apps</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../using-docker-compose/" class="nav-link">Using Docker Compose</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../image-building-best-practices/" class="nav-link">Image Building Best Practices</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../what-next/" class="nav-link">What Next?</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../updating-our-app/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../persisting-our-data/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/fintech-ye" class="nav-link">makeen/fintech-ye</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#create-a-repo" class="nav-link">Create a Repo</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#pushing-our-image" class="nav-link">Pushing our Image</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#running-our-image-on-a-new-instance" class="nav-link">Running our Image on a New Instance</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#recap" class="nav-link">Recap</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>Now that we've built an image, let's share it! To share Docker images, you have to use a Docker
+registry. The default registry is Docker Hub and is where all of the images we've used have come from.</p>
+<h2 id="create-a-repo">Create a Repo<a class="headerlink" href="#create-a-repo" title="Permanent link">&para;</a></h2>
+<p>To push an image, we first need to create a repo on Docker Hub.</p>
+<ol>
+<li>
+<p>Go to <a href="https://hub.docker.com">Docker Hub</a> and log in if you need to.</p>
+</li>
+<li>
+<p>Click the <strong>Create Repository</strong> button.</p>
+</li>
+<li>
+<p>For the repo name, use <code>dotnet-example-app</code>. Make sure the Visibility is <code>Public</code>.</p>
+</li>
+<li>
+<p>Click the <strong>Create</strong> button!</p>
+</li>
+</ol>
+<p>If you look on the right-side of the page, you'll see a section named <strong>Docker commands</strong>. This gives
+an example command that you will need to run to push to this repo.</p>
+<p class="text-center"><img alt="Docker command with push example" src="push-command.png" style="width:75%" /></p>
+<h2 id="pushing-our-image">Pushing our Image<a class="headerlink" href="#pushing-our-image" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>In the command line, try running the push command you see on Docker Hub. Note that your command
+   will be using your namespace, not "docker".</p>
+<p><code>plaintext
+$ docker push maghbari/dotnet-example-app
+The push refers to repository [docker.io/maghbari/dotnet-example-app]
+An image does not exist locally with the tag: maghbari/dotnet-example-app</code></p>
+<p>Why did it fail? The push command was looking for an image named maghbari/dotnet-example-app, but
+didn't find one. If you run <code>docker image ls</code>, you won't see one either.</p>
+<p>To fix this, we need to "tag" our existing image we've built to give it another name.</p>
+</li>
+<li>
+<p>Login to Docker Hub by either clicking on the "Sign In" button in Docker Desktop or using the 
+   command <code>docker login -u YOUR-USER-NAME</code>.</p>
+</li>
+<li>
+<p>Use the <code>docker tag</code> command to give the <code>getting-started</code> image a new name. Be sure to swap out
+   <code>YOUR-USER-NAME</code> with your Docker ID.</p>
+<p><code>bash
+docker tag dotnet-example-app YOUR-USER-NAME/dotnet-example-app</code></p>
+</li>
+<li>
+<p>Now try your push command again. If you're copying the value from Docker Hub, you can drop the 
+   <code>tagname</code> portion, as we didn't add a tag to the image name. If you don't specify a tag, Docker
+   will use a tag called <code>latest</code>.</p>
+<p><code>bash
+docker push YOUR-USER-NAME/dotnet-example-app</code></p>
+</li>
+<li>
+<p>The common practice when tagging images is to add the version number of the image before pushing it
+   as the following:</p>
+<p><code>bash
+docker tag dotnet-example-app YOUR-USER-NAME/dotnet-example-app:1.0
+docker push YOUR-USER-NAME/dotnet-example-app:1.0</code></p>
+</li>
+</ol>
+<h2 id="running-our-image-on-a-new-instance">Running our Image on a New Instance<a class="headerlink" href="#running-our-image-on-a-new-instance" title="Permanent link">&para;</a></h2>
+<p>Now that our image has been built and pushed into a registry, let's try running our app on a brand
+new instance that has never seen this container image! To do this, we will use Play with Docker.</p>
+<ol>
+<li>
+<p>Open your browser to <a href="https://labs.play-with-docker.com/">Play with Docker</a>.</p>
+</li>
+<li>
+<p>Log in with your Docker Hub account.</p>
+</li>
+<li>
+<p>Once you're logged in, click on the "+ ADD NEW INSTANCE" link in the left side bar. (If you don't see it, make your browser a little wider.) After a few seconds, a terminal window will be opened in your browser.</p>
+<p class="text-center"><img alt="Play with Docker add new instance" src="pwd-add-new-instance.png" style="width:75%" /></p>
+</li>
+<li>
+<p>In the terminal, start your freshly pushed app.</p>
+<p><code>bash
+docker run -d -p 8088:80 YOUR-USER-NAME/dotnet-example-app:1.0</code></p>
+<p>You should see the image get pulled down and eventually start up!</p>
+</li>
+<li>
+<p>Click on the 8088 badge when it comes up and you should see the app with your modifications!
+    If the 8088 badge doesn't show up, you can click on the "Open Port" button and type in 8088.</p>
+</li>
+</ol>
+<h2 id="recap">Recap<a class="headerlink" href="#recap" title="Permanent link">&para;</a></h2>
+<p>In this section, we learned how to share our images by pushing them to a registry. We then went to a
+brand new instance and were able to run the freshly pushed image. This is quite common in CI pipelines,
+where the pipeline will create the image and push it to a registry and then the production environment
+can use the latest version of the image.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2023-2024 MAKEEN</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/jquery-3.6.0.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

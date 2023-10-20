@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="MAKEEN">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Persisting our DB - MAKEEN LABS</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <link href="../../css/styles.css" rel="stylesheet">
+        <link href="../../css/dark-mode.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">MAKEEN LABS</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../our-application/" class="nav-link">First Application</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../updating-our-app/" class="nav-link">Updating First App</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../sharing-our-app/" class="nav-link">Sharing our App</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Persisting our DB</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../multi-container-apps/" class="nav-link">Multi-Container Apps</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../using-docker-compose/" class="nav-link">Using Docker Compose</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../image-building-best-practices/" class="nav-link">Image Building Best Practices</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../what-next/" class="nav-link">What Next?</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../sharing-our-app/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../multi-container-apps/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/fintech-ye" class="nav-link">makeen/fintech-ye</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#the-containers-filesystem" class="nav-link">The Container's Filesystem</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#container-volumes" class="nav-link">Container Volumes</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#persisting-our-todo-data" class="nav-link">Persisting our Todo Data</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#diving-into-our-volume" class="nav-link">Diving into our Volume</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#using-bind-mounts" class="nav-link">Using Bind Mounts</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>In case you didn't notice, our todo list is being wiped clean every single time
+we launch the container. Why is this? Let's dive into how the container is working.</p>
+<h2 id="the-containers-filesystem">The Container's Filesystem<a class="headerlink" href="#the-containers-filesystem" title="Permanent link">&para;</a></h2>
+<p>When a container runs, it uses the various layers from an image for its filesystem.
+Each container also gets its own "scratch space" to create/update/remove files. Any
+changes won't be seen in another container, <em>even if</em> they are using the same image.</p>
+<h3 id="seeing-this-in-practice">Seeing this in Practice<a class="headerlink" href="#seeing-this-in-practice" title="Permanent link">&para;</a></h3>
+<p>To see this in action, let's run the univerity application, an example dotnet core app the reads
+data from a sqlite data. The app is a web site for a fictional Docker University that includes functionalities
+such as student admission, course creation, and instructor assignments.</p>
+<ol>
+<li>
+<p>Pull the docker image from docker hub
+https://hub.docker.com/r/maghbari/university-app</p>
+<p><code>bash
+docker pull maghbari/university-app</code>
+1. Start your container using the <code>docker run</code> command and specify the name of the image we 
+just pulled:</p>
+<p><code>bash
+docker run --name=university-app -d -p 8090:80 maghbari/university-app</code></p>
+</li>
+<li>
+<p>After a few seconds, open your web browser to <a href="http://localhost:8090">http://localhost:8090</a>.
+    You should see our app!</p>
+<p class="text-center"><img alt="Univerity Application is running" src="university-app.png" style="width: 70%; " /></p>
+</li>
+<li>
+<p>Using the app UI, Go ahead to Students menu and add a student or two and see that it works as you expect.
+   Refresh the page to ensure the frontend is successfully storing items in the backend.</p>
+<p class="text-center"><img alt="Adding new students" src="university-app2.png" style="width: 79%; " /></p>
+</li>
+<li>
+<p>Now, let's remove the container </p>
+<p><code>bash
+docker rm -f university-app</code>
+   execute <code>docker ps</code> to ensure the container is removed</p>
+</li>
+<li>
+<p>Now, Start the container again using the same command you have previously used:</p>
+<p><code>bash
+docker run --name=university-app -d -p 8090:80 maghbari/university-app</code>
+Go again to Students menu qnd look! The Student you have added are not there!
+That's because the data was written to the scratch space of the container.</p>
+</li>
+</ol>
+<h2 id="container-volumes">Container Volumes<a class="headerlink" href="#container-volumes" title="Permanent link">&para;</a></h2>
+<p>With the previous experiment, we saw that each container starts from the image definition each time it starts. 
+While containers can create, update, and delete files, those changes are lost when the container is removed 
+and all changes are isolated to that container.</p>
+<p>With <code>volumes</code>, we can change all of this.</p>
+<p><a href="https://docs.docker.com/storage/volumes/">Volumes</a> provide the ability to connect specific filesystem paths of 
+the container back to the host machine. If a directory in the container is mounted, changes in that
+directory are also seen on the host machine. If we mount that same directory across container restarts, we'd see
+the same data.</p>
+<p>There are two main types of volumes. We will eventually use both, but we will start with <strong>named volumes</strong>.</p>
+<h2 id="persisting-our-todo-data">Persisting our Todo Data<a class="headerlink" href="#persisting-our-todo-data" title="Permanent link">&para;</a></h2>
+<p>By default, the <a href="https://github.com/fintech-ye/dotnet-example-app">university app</a> stores its data in a SQLite Database at
+<code>/db/CU.db</code>. If you're not familiar with SQLite, no worries! It's simply a relational database in 
+which all of the data is stored in a single file.</p>
+<p>With the database being a single file, if we can persist that file on the host and make it available to the
+next container, it should be able to pick up where the last one left off. By creating a volume and attaching
+(often called "mounting") it to the directory the data is stored in, we can persist the data. As our container 
+writes to the <code>CU.db</code> file, it will be persisted to the host in the volume.</p>
+<p>As mentioned, we are going to use a <strong>named volume</strong>. Think of a named volume as simply a bucket of data. 
+Docker maintains the physical location on the disk and you only need to remember the name of the volume. 
+Every time you use the volume, Docker will make sure the correct data is provided.</p>
+<ol>
+<li>
+<p>Create a volume by using the <code>docker volume create</code> command.</p>
+<p><code>bash
+docker volume create db_volume</code></p>
+</li>
+<li>
+<p>Stop the univeristy app container once again in the Dashboard (or with <code>docker rm -f &lt;container-id&gt;</code>), as it is still running without using the persistent volume.</p>
+</li>
+<li>
+<p>Start the univeristy app container, but add the <code>-v</code> flag to specify a volume mount. We will use the named volume and mount
+   it to <code>/db</code>, which will capture all files created at the path.</p>
+<p><code>bash
+docker run -d --name university-app -p 8090:80 -v db_volume:/db/ university-app</code></p>
+</li>
+<li>
+<p>Once the container starts up, open the app and add a few items through the students menu.</p>
+</li>
+<li>
+<p>Remove the container for the university app. Use the Dashboard or <code>docker ps</code> to get the ID and then <code>docker rm -f &lt;container-id&gt;</code> to remove it.</p>
+</li>
+<li>
+<p>Start a new container using the same command from above.</p>
+</li>
+<li>
+<p>Open the app. You should see all students data still in your list!</p>
+</li>
+<li>
+<p>Go ahead and remove the container when you're done checking out your list.</p>
+</li>
+</ol>
+<p>Now You've now learned how to persist data!</p>
+<div class="admonition info">
+<p class="admonition-title">Pro-tip</p>
+<p>While named volumes and bind mounts (which we'll talk about in a minute) are the two main types of volumes supported
+by a default Docker engine installation, there are many volume driver plugins available to support NFS, SFTP, NetApp, 
+and more! This will be especially important once you start running containers on multiple hosts in a clustered
+environment with like Kubernetes.</p>
+</div>
+<h2 id="diving-into-our-volume">Diving into our Volume<a class="headerlink" href="#diving-into-our-volume" title="Permanent link">&para;</a></h2>
+<p>A lot of people frequently ask "Where is Docker <em>actually</em> storing my data when I use a named volume?" If you want to know, 
+you can use the <code>docker volume inspect</code> command.</p>
+<pre class="codehilite"><code class="language-bash">docker volume inspect todo-db
+[
+    {
+        &quot;CreatedAt&quot;: &quot;2023-10-15T22:14:39Z&quot;,
+        &quot;Driver&quot;: &quot;local&quot;,
+        &quot;Labels&quot;: null,
+        &quot;Mountpoint&quot;: &quot;/var/lib/docker/volumes/db_volume/_data&quot;,
+        &quot;Name&quot;: &quot;db_volume&quot;,
+        &quot;Options&quot;: null,
+        &quot;Scope&quot;: &quot;local&quot;
+    }
+]
+</code></pre>
+
+<p>The <code>Mountpoint</code> is the actual location on the disk where the data is stored. Note that on most machines, you will
+need to have root access to access this directory from the host. But, that's where it is!</p>
+<p>In the previous chapter, we talked about and used a <strong>named volume</strong> to persist the data in our database.
+Named volumes are great if we simply want to store data, as we don't have to worry about <em>where</em> the data
+is stored.</p>
+<h2 id="using-bind-mounts">Using Bind Mounts<a class="headerlink" href="#using-bind-mounts" title="Permanent link">&para;</a></h2>
+<p>In the previous example, we used a named volume to persist the data in our database. Named volumes are great if we simply want to store data, as we don't have to worry about where the data is stored.</p>
+<p>With <strong>bind mounts</strong>, we control the exact mountpoint on the host. We can use this to persist data, but is often
+used to provide additional data into containers. Let's again work with the university application, but now
+we will use a bind mount to
+mount a host path in which the <code>CU.db</code> will be stored.</p>
+<ol>
+<li>
+<p>Stop the univeristy app container once again in the Dashboard (or with <code>docker rm -f &lt;container-id&gt;</code>).</p>
+</li>
+<li>
+<p>Start the univeristy app container, but now the  <code>-v</code> flag will specify a binding mount on the host
+   instead of using a named volume.</p>
+<p><code>bash
+docker run -d --name university-app -p 8090:80 -v c:/Users/MO/db/:/db/ university-app</code>
+Note that the binding mount path <code>c:/Users/MO/db/</code> should be replaced by a path in your host machine.</p>
+</li>
+<li>
+<p>Open the folder where the binding mount path located, and there you will find the database file <code>CU.db</code></p>
+</li>
+<li>
+<p>Once the container starts up, open the app and add a few items through the students menu.</p>
+</li>
+<li>
+<p>Now try removing and running the container again using the last <code>docker run</code> command we have used
+   You will find that all students data still in your list!</p>
+</li>
+</ol>
+<p>At this point, we have a functioning application that can survive restarts or damages!</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2023-2024 MAKEEN</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/jquery-3.6.0.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>

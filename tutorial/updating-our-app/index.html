@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        
+        <meta name="author" content="MAKEEN">
+        
+        <link rel="shortcut icon" href="../../img/favicon.ico">
+        <title>Updating First App - MAKEEN LABS</title>
+        <link href="../../css/bootstrap.min.css" rel="stylesheet">
+        <link href="../../css/font-awesome.min.css" rel="stylesheet">
+        <link href="../../css/base.css" rel="stylesheet">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/styles/github.min.css">
+        <link href="../../css/styles.css" rel="stylesheet">
+        <link href="../../css/dark-mode.css" rel="stylesheet">
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/highlight.js/11.8.0/highlight.min.js"></script>
+        <script>hljs.highlightAll();</script> 
+    </head>
+
+    <body>
+        <div class="navbar fixed-top navbar-expand-lg navbar-dark bg-primary">
+            <div class="container">
+                <a class="navbar-brand" href="../..">MAKEEN LABS</a>
+                <!-- Expander button -->
+                <button type="button" class="navbar-toggler" data-toggle="collapse" data-target="#navbar-collapse">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+
+                <!-- Expanded navigation -->
+                <div id="navbar-collapse" class="navbar-collapse collapse">
+                        <!-- Main navigation -->
+                        <ul class="nav navbar-nav">
+                            <li class="navitem">
+                                <a href="../" class="nav-link">Getting Started</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../our-application/" class="nav-link">First Application</a>
+                            </li>
+                            <li class="navitem active">
+                                <a href="./" class="nav-link">Updating First App</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../sharing-our-app/" class="nav-link">Sharing our App</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../persisting-our-data/" class="nav-link">Persisting our DB</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../multi-container-apps/" class="nav-link">Multi-Container Apps</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../using-docker-compose/" class="nav-link">Using Docker Compose</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../image-building-best-practices/" class="nav-link">Image Building Best Practices</a>
+                            </li>
+                            <li class="navitem">
+                                <a href="../what-next/" class="nav-link">What Next?</a>
+                            </li>
+                        </ul>
+
+                    <ul class="nav navbar-nav ml-auto">
+                        <li class="nav-item">
+                            <a href="#" class="nav-link" data-toggle="modal" data-target="#mkdocs_search_modal">
+                                <i class="fa fa-search"></i> Search
+                            </a>
+                        </li>
+                            <li class="nav-item">
+                                <a rel="prev" href="../our-application/" class="nav-link">
+                                    <i class="fa fa-arrow-left"></i> Previous
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a rel="next" href="../sharing-our-app/" class="nav-link">
+                                    Next <i class="fa fa-arrow-right"></i>
+                                </a>
+                            </li>
+                            <li class="nav-item">
+                                <a href="https://github.com/fintech-ye" class="nav-link">makeen/fintech-ye</a>
+                            </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="container">
+            <div class="row">
+                    <div class="col-md-3"><div class="navbar-light navbar-expand-md bs-sidebar hidden-print affix" role="complementary">
+    <div class="navbar-header">
+        <button type="button" class="navbar-toggler collapsed" data-toggle="collapse" data-target="#toc-collapse" title="Table of Contents">
+            <span class="fa fa-angle-down"></span>
+        </button>
+    </div>
+
+    
+    <div id="toc-collapse" class="navbar-collapse collapse card bg-secondary">
+        <ul class="nav flex-column">
+            
+            <li class="nav-item" data-level="2"><a href="#updating-our-source-code" class="nav-link">Updating our Source Code</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="2"><a href="#replacing-our-old-container" class="nav-link">Replacing our Old Container</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+            
+            <li class="nav-item" data-level="1"><a href="#swap-out-with-the-id-from-docker-ps" class="nav-link">Swap out  with the ID from docker ps</a>
+              <ul class="nav flex-column">
+              </ul>
+            </li>
+        </ul>
+    </div>
+</div></div>
+                    <div class="col-md-9" role="main">
+
+<p>Now we've been asked by the product team to change the welcome message in our app <code>dotnet-example-app</code>
+into <code>Welcome to our App</code></p>
+<h2 id="updating-our-source-code">Updating our Source Code<a class="headerlink" href="#updating-our-source-code" title="Permanent link">&para;</a></h2>
+<ol>
+<li>
+<p>In the <code>Pages/Index.cshtml</code> file, update line 8 to use the new empty text.</p>
+<p><code>diff
+-                &lt;h1 class="display-4"&gt;Welcome&lt;/h1&gt;
++                &lt;h1 class="display-4"&gt;Welcome to our App&lt;/h1&gt;</code></p>
+</li>
+<li>
+<p>Let's build our updated version of the image, using the same command we used before.</p>
+<p><code>bash
+docker build -t dotnet-example-app .</code></p>
+</li>
+<li>
+<p>Let's start a new container using the updated code.</p>
+<p><code>bash
+docker run --name=dotnet-example-app -d -p 8088:80 dotnet-example-app</code></p>
+</li>
+</ol>
+<p><strong>Uh oh!</strong> You probably saw an error like this (the IDs will be different):</p>
+<pre class="codehilite"><code class="language-bash">docker: Error response from daemon: driver failed programming external connectivity on endpoint dotnet-example-app-updated (7ec2aa11290d7c766dba45c3ab46aaa143fd05ceb4c34b57bd24150fafec8d93): Bind for 0.0.0.0:8088 failed: port is already allocated.
+</code></pre>
+
+<p>So, what happened? We aren't able to start the new container because our old container is still
+running. The reason this is a problem is because that container is using the host's port 8088 and
+only one process on the machine (containers included) can listen to a specific port. To fix this, 
+we need to remove the old container.</p>
+<h2 id="replacing-our-old-container">Replacing our Old Container<a class="headerlink" href="#replacing-our-old-container" title="Permanent link">&para;</a></h2>
+<p>To remove a container, it first needs to be stopped. Once it has stopped, it can be removed. We have two
+ways that we can remove the old container. Feel free to choose the path that you're most comfortable with.</p>
+<h3 id="removing-a-container-using-the-cli">Removing a container using the CLI<a class="headerlink" href="#removing-a-container-using-the-cli" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Get the ID of the container by using the <code>docker ps</code> command.</p>
+<p><code>bash
+docker ps</code></p>
+</li>
+<li>
+<p>Use the <code>docker stop</code> command to stop the container.</p>
+<p>```bash</p>
+<h1 id="swap-out-with-the-id-from-docker-ps">Swap out <the-container-id> with the ID from docker ps<a class="headerlink" href="#swap-out-with-the-id-from-docker-ps" title="Permanent link">&para;</a></h1>
+<p>docker stop <the-container-id>
+```</p>
+</li>
+<li>
+<p>Once the container has stopped, you can remove it by using the <code>docker rm</code> command.</p>
+<p><code>bash
+docker rm &lt;the-container-id&gt;</code></p>
+</li>
+</ol>
+<div class="admonition info">
+<p class="admonition-title">Pro tip</p>
+<p>You can stop and remove a container in a single command by adding the "force" flag
+to the <code>docker rm</code> command. For example: <code>docker rm -f &lt;the-container-id&gt;</code></p>
+</div>
+<h3 id="removing-a-container-using-the-docker-dashboard">Removing a container using the Docker Dashboard<a class="headerlink" href="#removing-a-container-using-the-docker-dashboard" title="Permanent link">&para;</a></h3>
+<p>If you open the Docker dashboard, you can remove a container with two clicks! It's certainly
+much easier than having to look up the container ID and remove it.</p>
+<ol>
+<li>
+<p>With the dashboard opened, hover over the app container and you'll see a collection of action
+    buttons appear on the right.</p>
+</li>
+<li>
+<p>Click on the trash can icon to delete the container. </p>
+</li>
+<li>
+<p>Confirm the removal and you're done!</p>
+</li>
+</ol>
+<p><img alt="Docker Dashboard - removing a container" src="dashboard-removing-container.png" /></p>
+<h3 id="starting-our-updated-app-container">Starting our updated app container<a class="headerlink" href="#starting-our-updated-app-container" title="Permanent link">&para;</a></h3>
+<ol>
+<li>
+<p>Now, start your updated app.</p>
+<p><code>bash
+docker run --name=dotnet-example-app -d -p 8088:80 dotnet-example-app</code></p>
+</li>
+<li>
+<p>Refresh your browser on <a href="http://localhost:8088">http://localhost:8088</a> and you should see your updated welcome text!</p>
+</li>
+</ol>
+<p class="text-center"><img alt="Updated application with updated empty text" src="todo-list-updated-empty-text.png" style="width:55%" /></p>
+<p>Next, we'll see how to share these images with others.</p></div>
+            </div>
+        </div>
+
+        <footer class="col-md-12">
+            <hr>
+                <p>Copyright &copy; 2023-2024 MAKEEN</p>
+            <p>Documentation built with <a href="https://www.mkdocs.org/">MkDocs</a>.</p>
+        </footer>
+        <script src="../../js/jquery-3.6.0.min.js"></script>
+        <script src="../../js/bootstrap.min.js"></script>
+        <script>
+            var base_url = "../..",
+                shortcuts = {"help": 191, "next": 78, "previous": 80, "search": 83};
+        </script>
+        <script src="../../js/base.js"></script>
+        <script src="../../search/main.js"></script>
+
+        <div class="modal" id="mkdocs_search_modal" tabindex="-1" role="dialog" aria-labelledby="searchModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-lg">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="searchModalLabel">Search</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+                <p>From here you can search these documents. Enter your search terms below.</p>
+                <form>
+                    <div class="form-group">
+                        <input type="search" class="form-control" placeholder="Search..." id="mkdocs-search-query" title="Type search term here">
+                    </div>
+                </form>
+                <div id="mkdocs-search-results" data-no-results-text="No results found"></div>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div><div class="modal" id="mkdocs_keyboard_modal" tabindex="-1" role="dialog" aria-labelledby="keyboardModalLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" id="keyboardModalLabel">Keyboard Shortcuts</h4>
+                <button type="button" class="close" data-dismiss="modal"><span aria-hidden="true">&times;</span><span class="sr-only">Close</span></button>
+            </div>
+            <div class="modal-body">
+              <table class="table">
+                <thead>
+                  <tr>
+                    <th style="width: 20%;">Keys</th>
+                    <th>Action</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td class="help shortcut"><kbd>?</kbd></td>
+                    <td>Open this help</td>
+                  </tr>
+                  <tr>
+                    <td class="next shortcut"><kbd>n</kbd></td>
+                    <td>Next page</td>
+                  </tr>
+                  <tr>
+                    <td class="prev shortcut"><kbd>p</kbd></td>
+                    <td>Previous page</td>
+                  </tr>
+                  <tr>
+                    <td class="search shortcut"><kbd>s</kbd></td>
+                    <td>Search</td>
+                  </tr>
+                </tbody>
+              </table>
+            </div>
+            <div class="modal-footer">
+            </div>
+        </div>
+    </div>
+</div>
+
+    </body>
+</html>
