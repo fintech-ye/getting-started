@@ -1,7 +1,7 @@
 site_name: MAKEEN LABS
 site_description: MAKEEN CBY Training Labs
 site_author: MAKEEN
-site_url: https://fintech-ye.github.io
+# site_url: https://fintech-ye.github.io
 
 # Repository
 repo_name: makeen/fintech-ye
@@ -33,6 +33,9 @@ plugins:
   - search
   - minify:
       minify_html: true
+  - redirects:
+      redirect_maps:
+        'index.md': 'tutorial/index.md'
 
 # Customization
 extra:
