@@ -9,14 +9,14 @@ Let's first explain the command that you just ran. In case you forgot,
 here's the command:
 
 ```cli
-docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.0
+docker run --name=makeen-labs -d -p 8080:80 maghbari/makeen-labs:1.1
 ```
 
 You'll notice a few flags being used. Here's some more info on them:
 
 - `-d` - run the container in detached mode (in the background)
 - `-p 8080:80` - map port 8080 of the host to port 80 in the container
-- `maghbari/makeen-labs:1.0` - the image to us
+- `maghbari/makeen-labs:1.1` - the image to us
 
 ## The Docker Dashboard
 

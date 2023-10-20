@@ -10,5 +10,5 @@ fi
 
 docker buildx build \
       --platform linux/amd64,linux/arm64 \
-      -t maghbari/makeen-labs:1.0 \
+      -t maghbari/makeen- \
       $( (( $WILL_PUSH == 1 )) && printf %s '--push' ) .
