@@ -22,7 +22,8 @@ into depth, it covers the following topics:
 
 ## Getting Started
 
-The tutorial documentation is published on:
+The tutorial documentation is published online at:
+
 [https://fintech-ye.github.io/getting-started](https://fintech-ye.github.io/getting-started)
 
 If you wish to run the tutorial locally, you can use the following command after installing Docker Desktop:
