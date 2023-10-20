@@ -1,1 +1,1 @@
-redirect: tutorial
+redirect: getting-started/tutorial
