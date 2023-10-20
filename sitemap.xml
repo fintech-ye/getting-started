@@ -1,52 +1,52 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/image-building-best-practices/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/multi-container-apps/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/our-application/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/persisting-our-data/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/sharing-our-app/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/updating-our-app/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/using-docker-compose/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
     <url>
-         <loc>None</loc>
+         <loc>https://fintech-ye.github.io/getting-started/tutorial/what-next/</loc>
          <lastmod>2023-10-20</lastmod>
          <changefreq>daily</changefreq>
     </url>
