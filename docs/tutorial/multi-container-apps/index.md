@@ -41,11 +41,13 @@ For now, we will create the network first and attach the MSSQL Server container 
 1. Start a MSSQL Server container and attach it to the network. We're also going to define a few environment variables that the
   database will use to initialize the database (see the "Environment Variables" section in the [Microsoft Learn](https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16)).
 
-  > Remeber: This tutorial uses a simple password `CBY@123456` as an example for this tutorial, your password will always be different
 
     ```bash
     docker run -d --network=bank-network --name mssql-server -p 1433:1433 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=CBY@123456" -e "MSSQL_PID=Evaluation"  -v mssql_volume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest
     ```
+
+    > Remember: This tutorial uses a simple password `CBY@123456` as an example for this tutorial, your password will always be different
+
 
     !!! info "Pro-tip"
         You will notice we're using a volume named `mssql_volume` here and mounting it at `/var/opt/mssql`, which is
