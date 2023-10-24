@@ -2,7 +2,7 @@
 </code></pre></div> </li> <li> <p>Pull the official MS SQLServer docker image from docker hub <a href=https://hub.docker.com/_/microsoft-mssql-server>https://hub.docker.com/_/microsoft-mssql-server</a></p> <div class=highlight><pre><span></span><code>docker pull mcr.microsoft.com/mssql/server:2022-latest
 </code></pre></div> </li> <li> <p>Start a MSSQL Server container and attach it to the network. We're also going to define a few environment variables that the database will use to initialize the database (see the "Environment Variables" section in the <a href="https://learn.microsoft.com/en-us/sql/linux/quickstart-install-connect-docker?view=sql-server-ver16">Microsoft Learn</a>).</p> </li> </ol> <blockquote> <p>Remeber: This tutorial uses a simple password <code>CBY@123456</code> as an example for this tutorial, your password will always be different</p> </blockquote> <div class=codehilite><pre><span></span><code>```bash
 docker run -d --network=bank-network --name mssql-server -p 1433:1433 -e &quot;ACCEPT_EULA=Y&quot; -e &quot;MSSQL_SA_PASSWORD=CBY@123456&quot; -e &quot;MSSQL_PID=Evaluation&quot;  -v mssql_volume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest
-````
+```
 
 !!! info &quot;Pro-tip&quot;
     You will notice we&#39;re using a volume named `mssql_volume` here and mounting it at `/var/opt/mssql`, which is
