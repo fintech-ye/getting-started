@@ -45,7 +45,7 @@ For now, we will create the network first and attach the MSSQL Server container 
 
     ```bash
     docker run -d --network=bank-network --name mssql-server -p 1433:1433 -e "ACCEPT_EULA=Y" -e "MSSQL_SA_PASSWORD=CBY@123456" -e "MSSQL_PID=Evaluation"  -v mssql_volume:/var/opt/mssql -d mcr.microsoft.com/mssql/server:2022-latest
-    ````
+    ```
 
     !!! info "Pro-tip"
         You will notice we're using a volume named `mssql_volume` here and mounting it at `/var/opt/mssql`, which is
